@@ -1,8 +1,8 @@
-import "./Expenses.css";
-import ExpenseItem from "./ExpenseItem";
-import Card from "../UI/Card";
 import { useState } from "react";
+import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpenseList from "./ExpenseList";
+import "./Expenses.css";
 
 function Expenses({ expenses = [] }) {
     const [filteredYear, setFilteredYear] = useState("2020");
@@ -15,24 +15,10 @@ function Expenses({ expenses = [] }) {
         (expense) => expense.date.getFullYear().toString() === filteredYear
     );
 
-    let expenseContent = <div className="not-found">No expenses found!</div>;
-
-    if (filteredExpenses.length > 0)
-        expenseContent = filteredExpenses.map((expense) => {
-            return (
-                <ExpenseItem
-                    key={expense.id}
-                    date={expense.date}
-                    price={expense.amount}
-                    title={expense.title}
-                />
-            );
-        });
-
     return (
         <Card className="expenses">
             <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-            {expenseContent}
+            <ExpenseList items={filteredExpenses} />
         </Card>
     );
 }
