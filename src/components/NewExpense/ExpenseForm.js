@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./ExpenseForm.css";
+import ExpenseFormStyled from "./ExpenseFormStyled";
 
 const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState("");
@@ -34,8 +35,10 @@ const ExpenseForm = (props) => {
         setEnteredDate("");
     };
 
+    const isInvalidForm = !enteredTitle.trim() && !enteredAmount.trim() && !enteredDate.trim();
+
     return (
-        <form onSubmit={submitHandler}>
+        <ExpenseFormStyled invalidForm={isInvalidForm} onSubmit={submitHandler}>
             <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label>Title</label>
@@ -65,7 +68,7 @@ const ExpenseForm = (props) => {
             <div className="new-expense__actions">
                 <button type="submit">Add Expense</button>
             </div>
-        </form>
+        </ExpenseFormStyled>
     );
 };
 
